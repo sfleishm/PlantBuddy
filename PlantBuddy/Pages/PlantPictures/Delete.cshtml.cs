@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.PlantPictures
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace PlantBuddy.Pages.Plants
         }
 
         [BindProperty]
-      public Plant Plant { get; set; } = default!;
+      public PlantPicture PlantPicture { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Plants == null)
+            if (id == null || _context.PlantPictures == null)
             {
                 return NotFound();
             }
 
-            var plant = await _context.Plants.FirstOrDefaultAsync(m => m.PlantId == id);
+            var plantpicture = await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);
 
-            if (plant == null)
+            if (plantpicture == null)
             {
                 return NotFound();
             }
             else 
             {
-                Plant = plant;
+                PlantPicture = plantpicture;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Plants == null)
+            if (id == null || _context.PlantPictures == null)
             {
                 return NotFound();
             }
-            var plant = await _context.Plants.FindAsync(id);
+            var plantpicture = await _context.PlantPictures.FindAsync(id);
 
-            if (plant != null)
+            if (plantpicture != null)
             {
-                Plant = plant;
-                _context.Plants.Remove(Plant);
+                PlantPicture = plantpicture;
+                _context.PlantPictures.Remove(PlantPicture);
                 await _context.SaveChangesAsync();
             }
 

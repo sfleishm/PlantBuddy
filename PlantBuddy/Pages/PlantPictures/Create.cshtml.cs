@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.PlantPictures
 {
     public class CreateModel : PageModel
     {
@@ -21,22 +21,23 @@ namespace PlantBuddy.Pages.Plants
 
         public IActionResult OnGet()
         {
+        ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
             return Page();
         }
 
         [BindProperty]
-        public Plant Plant { get; set; } = default!;
+        public PlantPicture PlantPicture { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Plants == null || Plant == null)
+          if (!ModelState.IsValid || _context.PlantPictures == null || PlantPicture == null)
             {
                 return Page();
             }
 
-            _context.Plants.Add(Plant);
+            _context.PlantPictures.Add(PlantPicture);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

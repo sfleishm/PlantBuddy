@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.PlantPictures
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace PlantBuddy.Pages.Plants
             _context = context;
         }
 
-      public Plant Plant { get; set; } = default!; 
+      public PlantPicture PlantPicture { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Plants == null)
+            if (id == null || _context.PlantPictures == null)
             {
                 return NotFound();
             }
 
-            var plant = await _context.Plants.FirstOrDefaultAsync(m => m.PlantId == id);
-            if (plant == null)
+            var plantpicture = await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);
+            if (plantpicture == null)
             {
                 return NotFound();
             }
             else 
             {
-                Plant = plant;
+                PlantPicture = plantpicture;
             }
             return Page();
         }

@@ -14,6 +14,7 @@ namespace PlantBuddy.Data
         {
         }
 
-        public DbSet<Plant> Plant { get; set; } = default!;
+        public DbSet<Plant> Plants { get; set; } = default!;
+        public DbSet<PlantPicture> PlantPictures { get; set; } = default!;
     }
 }

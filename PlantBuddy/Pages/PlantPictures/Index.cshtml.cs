@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.PlantPictures
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +19,14 @@ namespace PlantBuddy.Pages.Plants
             _context = context;
         }
 
-        public IList<Plant> Plant { get;set; } = default!;
+        public IList<PlantPicture> PlantPicture { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Plants != null)
+            if (_context.PlantPictures != null)
             {
-                Plant = await _context.Plants.ToListAsync();
+                PlantPicture = await _context.PlantPictures
+                .Include(p => p.Plant).ToListAsync();
             }
         }
     }

@@ -1,0 +1,49 @@
+﻿@page
+@model PlantBuddy.Pages.PlantPictures.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PlantPicture</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlantPicture.Plant)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlantPicture.Plant.PlantName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlantPicture.PictureName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlantPicture.PictureName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlantPicture.Picture)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlantPicture.Picture)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlantPicture.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlantPicture.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlantPicture.LastModifiedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlantPicture.LastModifiedDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PlantPicture?.PlantPictureId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

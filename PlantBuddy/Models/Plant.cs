@@ -10,6 +10,6 @@ namespace PlantBuddy.Models
         public string? LightPreference { get; set; }
         
         // Relationships
-        public List<PlantPicture> Pictures { get; set; }
+        public List<PlantPicture>? Pictures { get; set; }
     }
 }

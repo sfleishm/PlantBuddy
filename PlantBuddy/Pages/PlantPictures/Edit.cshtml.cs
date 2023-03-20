@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.PlantPictures
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,22 @@ namespace PlantBuddy.Pages.Plants
         }
 
         [BindProperty]
-        public Plant Plant { get; set; } = default!;
+        public PlantPicture PlantPicture { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Plants == null)
+            if (id == null || _context.PlantPictures == null)
             {
                 return NotFound();
             }
 
-            var plant =  await _context.Plants.FirstOrDefaultAsync(m => m.PlantId == id);
-            if (plant == null)
+            var plantpicture =  await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);
+            if (plantpicture == null)
             {
                 return NotFound();
             }
-            Plant = plant;
+            PlantPicture = plantpicture;
+           ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
             return Page();
         }
 
@@ -48,7 +49,7 @@ namespace PlantBuddy.Pages.Plants
                 return Page();
             }
 
-            _context.Attach(Plant).State = EntityState.Modified;
+            _context.Attach(PlantPicture).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +57,7 @@ namespace PlantBuddy.Pages.Plants
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlantExists(Plant.PlantId))
+                if (!PlantPictureExists(PlantPicture.PlantPictureId))
                 {
                     return NotFound();
                 }
@@ -69,9 +70,9 @@ namespace PlantBuddy.Pages.Plants
             return RedirectToPage("./Index");
         }
 
-        private bool PlantExists(int id)
+        private bool PlantPictureExists(int id)
         {
-          return (_context.Plants?.Any(e => e.PlantId == id)).GetValueOrDefault();
+          return (_context.PlantPictures?.Any(e => e.PlantPictureId == id)).GetValueOrDefault();
         }
     }
 }
