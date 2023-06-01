@@ -12,6 +12,9 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
+            @Html.HiddenFor(m => m.PlantPicture.PlantPictureId)
+            @Html.HiddenFor(m => m.PlantPicture.Picture)
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PlantPicture.PlantPictureId" />
             <div class="form-group">
@@ -23,11 +26,6 @@
                 <label asp-for="PlantPicture.PictureName" class="control-label"></label>
                 <input asp-for="PlantPicture.PictureName" class="form-control" />
                 <span asp-validation-for="PlantPicture.PictureName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlantPicture.Picture" class="control-label"></label>
-                <input asp-for="PlantPicture.Picture" class="form-control" />
-                <span asp-validation-for="PlantPicture.Picture" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PlantPicture.CreatedDate" class="control-label"></label>
@@ -42,9 +40,15 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            <div>
+                @*<img height="200" src="@Url.Action("RenderImage", new { id = Model.PlantPicture.PlantPictureId })" />*@
+                <img height="200" src="@Model.Image" />
+            </div>
         </form>
     </div>
 </div>
+
+
 
 <div>
     <a asp-page="./Index">Back to List</a>

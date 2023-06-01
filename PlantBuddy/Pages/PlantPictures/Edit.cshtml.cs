@@ -23,6 +23,8 @@ namespace PlantBuddy.Pages.PlantPictures
         [BindProperty]
         public PlantPicture PlantPicture { get; set; } = default!;
 
+        public string Image { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.PlantPictures == null)
@@ -30,13 +32,19 @@ namespace PlantBuddy.Pages.PlantPictures
                 return NotFound();
             }
 
-            var plantpicture =  await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);
+            // REF: https://www.c-sharpcorner.com/article/mvc-display-image-from-byte-array/
+            byte[] picture = _context.PlantPictures.Find(id).Picture;
+            string imreBase64Data = Convert.ToBase64String(picture);
+            string imgDataURL = string.Format("data:image/jpeg;base64,{0}", imreBase64Data);
+            Image = imgDataURL;
+
+            var plantpicture = await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);
             if (plantpicture == null)
             {
                 return NotFound();
             }
             PlantPicture = plantpicture;
-           ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
+            ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
             return Page();
         }
 
@@ -44,10 +52,10 @@ namespace PlantBuddy.Pages.PlantPictures
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
             _context.Attach(PlantPicture).State = EntityState.Modified;
 
@@ -72,7 +80,20 @@ namespace PlantBuddy.Pages.PlantPictures
 
         private bool PlantPictureExists(int id)
         {
-          return (_context.PlantPictures?.Any(e => e.PlantPictureId == id)).GetValueOrDefault();
+            return (_context.PlantPictures?.Any(e => e.PlantPictureId == id)).GetValueOrDefault();
+        }
+
+        public string RenderImage(int id)
+        {
+            byte[] picture = _context.PlantPictures.Find(id).Picture;
+            //Image = File(picture, "image/jpeg");
+
+            string imreBase64Data = Convert.ToBase64String(picture);
+            string imgDataURL = string.Format("data:image/jpeg;base64,{0}", imreBase64Data);
+
+            var image = imgDataURL;
+
+            return image;
         }
     }
 }

@@ -1,0 +1,74 @@
+﻿@page
+@model PlantBuddy.Pages.Stores.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Store</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Store.StoreName" class="control-label"></label>
+                <input asp-for="Store.StoreName" class="form-control" />
+                <span asp-validation-for="Store.StoreName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.StoreAddress" class="control-label"></label>
+                <input asp-for="Store.StoreAddress" class="form-control" />
+                <span asp-validation-for="Store.StoreAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.Street" class="control-label"></label>
+                <input asp-for="Store.Street" class="form-control" />
+                <span asp-validation-for="Store.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.City" class="control-label"></label>
+                <input asp-for="Store.City" class="form-control" />
+                <span asp-validation-for="Store.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.State" class="control-label"></label>
+                <input asp-for="Store.State" class="form-control" />
+                <span asp-validation-for="Store.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.PostalCode" class="control-label"></label>
+                <input asp-for="Store.PostalCode" class="form-control" />
+                <span asp-validation-for="Store.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.Country" class="control-label"></label>
+                <input asp-for="Store.Country" class="form-control" />
+                <span asp-validation-for="Store.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.CreatedDate" class="control-label"></label>
+                <input asp-for="Store.CreatedDate" class="form-control" />
+                <span asp-validation-for="Store.CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Store.LastModifiedDate" class="control-label"></label>
+                <input asp-for="Store.LastModifiedDate" class="form-control" />
+                <span asp-validation-for="Store.LastModifiedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

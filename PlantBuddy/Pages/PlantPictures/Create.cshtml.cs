@@ -12,29 +12,42 @@ namespace PlantBuddy.Pages.PlantPictures
 {
     public class CreateModel : PageModel
     {
-        private readonly PlantBuddy.Data.PlantBuddyContext _context;
+        private readonly PlantBuddyContext _context;
+        private IWebHostEnvironment _environment;
 
-        public CreateModel(PlantBuddy.Data.PlantBuddyContext context)
+        public CreateModel(PlantBuddyContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
+            ViewData["PlantId"] = new SelectList(_context.Plants, "PlantId", "PlantName");
             return Page();
         }
 
         [BindProperty]
+        public IFormFile PictureUpload { get; set; }
+
+        [BindProperty]
         public PlantPicture PlantPicture { get; set; } = default!;
-        
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.PlantPictures == null || PlantPicture == null)
+            if (_context.PlantPictures == null || PlantPicture == null) //!ModelState.IsValid
             {
                 return Page();
+            }
+
+            var x = PlantPicture.Picture;
+
+            // REF: https://www.youtube.com/watch?v=Du8brcxA-KM
+            using (BinaryReader br = new BinaryReader(PictureUpload.OpenReadStream()))
+            {
+                PlantPicture.Picture = br.ReadBytes((int)PictureUpload.Length);
             }
 
             _context.PlantPictures.Add(PlantPicture);

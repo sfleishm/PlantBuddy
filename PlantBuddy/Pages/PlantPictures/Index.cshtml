@@ -20,9 +20,6 @@
                 @Html.DisplayNameFor(model => model.PlantPicture[0].PictureName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PlantPicture[0].Picture)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PlantPicture[0].CreatedDate)
             </th>
             <th>
@@ -32,29 +29,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.PlantPicture) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plant.PlantName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Picture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.PlantPictureId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.PlantPictureId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.PlantPictureId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.PlantPicture)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plant.PlantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PictureName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModifiedDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PlantPictureId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PlantPictureId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PlantPictureId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

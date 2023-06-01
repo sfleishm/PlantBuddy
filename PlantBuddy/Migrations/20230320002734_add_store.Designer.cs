@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantBuddy.Data;
 
@@ -11,9 +12,10 @@ using PlantBuddy.Data;
 namespace PlantBuddy.Migrations
 {
     [DbContext(typeof(PlantBuddyContext))]
-    partial class PlantBuddyContextModelSnapshot : ModelSnapshot
+    [Migration("20230320002734_add_store")]
+    partial class add_store
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PlantBuddy.Data;
 using PlantBuddy.Models;
 
-namespace PlantBuddy.Pages.Plants
+namespace PlantBuddy.Pages.Stores
 {
     public class CreateModel : PageModel
     {
@@ -21,23 +21,22 @@ namespace PlantBuddy.Pages.Plants
 
         public IActionResult OnGet()
         {
-            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreName");
             return Page();
         }
 
         [BindProperty]
-        public Plant Plant { get; set; } = default!;
+        public Store Store { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Plants == null || Plant == null)
+          if (!ModelState.IsValid || _context.Stores == null || Store == null)
             {
                 return Page();
             }
 
-            _context.Plants.Add(Plant);
+            _context.Stores.Add(Store);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
