@@ -11,5 +11,12 @@
         // Properties
         public string PictureName { get; set; }
         public byte[] Picture { get; set; }
+
+        public static string ConvertImage(byte[] bytes)
+        {
+            string imreBase64Data = Convert.ToBase64String(bytes);
+            string imgDataURL = string.Format("data:image/jpeg;base64,{0}", imreBase64Data);
+            return imgDataURL;
+        }
     }
 }

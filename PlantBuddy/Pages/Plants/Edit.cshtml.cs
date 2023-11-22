@@ -23,6 +23,8 @@ namespace PlantBuddy.Pages.Plants
         [BindProperty]
         public Plant Plant { get; set; } = default!;
 
+        public List<string> PlantImages { get; set; } = new List<string>();
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Plants == null)
@@ -30,12 +32,17 @@ namespace PlantBuddy.Pages.Plants
                 return NotFound();
             }
 
-            var plant =  await _context.Plants.FirstOrDefaultAsync(m => m.PlantId == id);
+            var plant =  await _context.Plants.Include(x => x.Pictures).FirstOrDefaultAsync(m => m.PlantId == id);
             if (plant == null)
             {
                 return NotFound();
             }
             Plant = plant;
+
+            foreach (var image in plant.Pictures)
+            {
+                PlantImages.Add(PlantPicture.ConvertImage(image.Picture));
+            }
             return Page();
         }
 

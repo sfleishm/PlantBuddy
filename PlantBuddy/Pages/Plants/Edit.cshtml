@@ -39,6 +39,12 @@
             </div>
         </form>
     </div>
+    <div class="col">
+        @foreach (var picture in Model.PlantImages)
+        {
+            <img height="200" src="@picture" />
+        }
+    </div>
 </div>
 
 <div>
