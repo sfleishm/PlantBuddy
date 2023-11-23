@@ -34,8 +34,7 @@ namespace PlantBuddy.Pages.PlantPictures
 
             // REF: https://www.c-sharpcorner.com/article/mvc-display-image-from-byte-array/
             byte[] picture = _context.PlantPictures.Find(id).Picture;
-            string imreBase64Data = Convert.ToBase64String(picture);
-            string imgDataURL = string.Format("data:image/jpeg;base64,{0}", imreBase64Data);
+            string imgDataURL = PlantPicture.ConvertImage(picture);
             Image = imgDataURL;
 
             var plantpicture = await _context.PlantPictures.FirstOrDefaultAsync(m => m.PlantPictureId == id);

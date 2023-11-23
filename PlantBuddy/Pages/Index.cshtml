@@ -4,7 +4,22 @@
     ViewData["Title"] = "Home page";
 }
 
+<link rel="stylesheet" href="~/css/index/image-gallery.css" asp-append-version="true" />
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <p>
+        @{
+            var plantIndex = 0;
+        }
+        @foreach(var image in Model.PlantImages)
+        {
+            <img src="@image" class="image" alt="..." data-index="@plantIndex" data-status="inactive">
+            plantIndex++;
+        }
+    </p>
 </div>
+
+<script src="~/js/index/image-gallery.js" asp-append-version="true"></script>

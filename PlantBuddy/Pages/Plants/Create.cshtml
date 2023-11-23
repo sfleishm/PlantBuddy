@@ -24,6 +24,11 @@
                 <span asp-validation-for="Plant.LightPreference" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Plant.ResourceLink" class="control-label"></label>
+                <input type="url" asp-for="Plant.ResourceLink" class="form-control" />
+                <span asp-validation-for="Plant.ResourceLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Plant.CreatedDate" class="control-label"></label>
                 <input asp-for="Plant.CreatedDate" class="form-control" />
                 <span asp-validation-for="Plant.CreatedDate" class="text-danger"></span>

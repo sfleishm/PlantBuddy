@@ -17,6 +17,7 @@ namespace PlantBuddy.Data
         public DbSet<Plant> Plants { get; set; } = default!;
         public DbSet<PlantPicture> PlantPictures { get; set; } = default!;
         public DbSet<Store> Stores { get; set; } = default!;
+        public DbSet<WaterHistory> WaterHistories { get; set; } = default!;
 
     }
 }
