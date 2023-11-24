@@ -23,8 +23,25 @@ const distanceFromLast = (x, y) => {
     return Math.hypot(x - last.x, y - last.y);
 }
 
+const closeToEdge = (x, y, percent) => {
+    let minWidth = 0;
+    let minHeight = 0;
+    let maxWidth = window.innerWidth;
+    let maxHeight = window.innerHeight;
+
+    let widthRange = maxWidth * (percent / 100);
+    let heightRange = maxHeight * (percent / 100);
+
+    if (x < minWidth + widthRange) return true;
+    else if (x > maxWidth - widthRange) return true;
+    else if (y < minHeight + heightRange) return true;
+    else if (y > maxHeight - heightRange) return true;
+
+    return false;
+}
+
 const handleOnMove = e => {
-    if (distanceFromLast(e.clientX, e.clientY) > (window.innerWidth / 20)) {
+    if ((distanceFromLast(e.clientX, e.clientY) > (window.innerWidth / 20)) && !closeToEdge(e.clientX, e.clientY, 10)) {
         const lead = images[globalIndex % images.length],
             tail = images[(globalIndex - 5) % images.length];
 
