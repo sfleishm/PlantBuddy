@@ -19,7 +19,8 @@ namespace PlantBuddy.Pages.Plants
             _context = context;
         }
 
-      public Plant Plant { get; set; } = default!; 
+        [BindProperty] public Plant Plant { get; set; } = default!;
+        [BindProperty] public DateTime DateWatered { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,7 +38,26 @@ namespace PlantBuddy.Pages.Plants
             {
                 Plant = plant;
             }
+
+            DateWatered = DateTime.Now;
+
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAddWaterHistory(int id)
+        {
+            var waterHistory = new WaterHistory()
+            {
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now,
+                PlantId = id,
+                WateredOn = DateWatered
+            };
+
+            _context.WaterHistories.Add(waterHistory);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Details", new { id = id });
         }
     }
 }

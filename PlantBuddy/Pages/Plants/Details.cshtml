@@ -23,6 +23,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Plant.LightPreference)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Plant.ResourceLink)
+        </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Plant.ResourceLink)
         </dd>
@@ -38,9 +41,87 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Plant.LastModifiedDate)
         </dd>
+        <dt class="col-sm-2">
+            Add Datetime:
+        </dt>
+        <dd class="col-sm-10">
+            <form asp-page-handler="AddWaterHistory" asp-route-id="@Model.Plant.PlantId" method="post">
+                <div class="input-group mb-3">
+                    <input class="form-control" asp-for="@Model.DateWatered" />
+                    <button class="btn btn-default">Add</button>
+                </div>
+            </form>
+        </dd>
     </dl>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Plant?.PlantId">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<script>
+
+    // set the dimensions and margins of the graph
+    var margin = { top: 10, right: 30, bottom: 90, left: 40 },
+        width = 460 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    // Parse the Data
+    d3.json("https://localhost:7290/waterhistory/details/3", function (data) {
+    //d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function (data) {
+        console.log(data);
+
+        // X axis
+        var x = d3.scaleTime()
+            .domain(d3.extent(data, function (d) { return d3.timeParse("%Y-%m-%d")(d.date); }))
+            .range([0, width]);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, 1])
+            .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        // Lines
+        svg.selectAll("myline")
+            .data(data)
+            .enter()
+            .append("line")
+            .attr("x1", function (d) { return x(d3.timeParse("%Y-%m-%d")(d.date)); })
+            .attr("x2", function (d) { return x(d3.timeParse("%Y-%m-%d")(d.date)); })
+            .attr("y1", function (d) { return y(d.value); })
+            .attr("y2", y(0))
+            .attr("stroke", "grey")
+
+        // Circles
+        svg.selectAll("mycircle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { return x(d3.timeParse("%Y-%m-%d")(d.date)); })
+            .attr("cy", function (d) { return y(d.value); })
+            .attr("r", "4")
+            .style("fill", "#69b3a2")
+            .attr("stroke", "black")
+    })
+
+</script>
